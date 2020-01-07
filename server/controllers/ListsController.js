@@ -43,7 +43,7 @@ export default class ListsController {
 
   async getById(req, res, next) {
     try {
-      let data = await _listsService.getById(req.params.id, req.session.uid);
+      let data = await _listsService.getById(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error);

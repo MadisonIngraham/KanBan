@@ -24,6 +24,7 @@ export default {
   components: {
     List
   },
+  props: ["boardId"],
   mounted() {
     this.$store.dispatch("getBoardById", this.$route.params.boardId);
     this.$store.dispatch("getLists", this.$route.params.boardId);
@@ -33,9 +34,7 @@ export default {
       let list = { ...this.newList };
       this.$store.dispatch("createList", list);
       this.newList = {
-        title: "",
-        boardId: this.$store.state.activeBoard._id,
-        authorId: ""
+        title: ""
       };
     }
   },
@@ -43,7 +42,7 @@ export default {
     return {
       newList: {
         title: "",
-        boardId: this.$store.state.activeBoard._id,
+        boardId: this.$route.params.boardId,
         authorId: this.$store.state.activeBoard.authorId
       }
     };
@@ -55,7 +54,6 @@ export default {
     lists() {
       return this.$store.state.lists;
     }
-  },
-  props: ["boardId"]
+  }
 };
 </script>

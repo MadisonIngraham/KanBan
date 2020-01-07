@@ -32,7 +32,8 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     activeBoard: {},
-    lists: []
+    lists: [],
+    tasks: {}
   },
   mutations: {
     setResource(state, payload) {
@@ -50,6 +51,14 @@ export default new Vuex.Store({
 
     addList(state, list) {
       state.lists.push(list);
+    },
+    addTask(state, task) {
+      state.tasks.push(task);
+      console.log(state.tasks);
+    },
+
+    setTasks(state, payload) {
+      Vue.set(state.tasks, payload.listId, payload.data);
     }
   },
   actions: {
@@ -83,6 +92,5 @@ export default new Vuex.Store({
         console.warn(e.message);
       }
     }
-    //#endregion
   }
 });
