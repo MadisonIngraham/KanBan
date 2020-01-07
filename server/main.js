@@ -39,10 +39,12 @@ server.use("/account", new UsersController().router);
 import BoardsController from "./controllers/BoardsController";
 import ListsController from "./controllers/ListsController";
 import TasksController from "./controllers/TasksController";
+import CommentsController from "./controllers/CommentsController";
 
 server.use("/api/boards", new BoardsController().router);
 server.use("/api/lists", new ListsController().router);
 server.use("/api/tasks", new TasksController().router);
+server.use("/api/comments", new CommentsController().router);
 
 //NOTE Default error handler, catches all routes with an error attached
 server.use((error, req, res, next) => {

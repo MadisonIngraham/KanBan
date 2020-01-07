@@ -1,16 +1,15 @@
-import _tasksService from "../services/TasksService";
-import _commentsService from "../services/CommentsService";
+import _commentsService from "../services/commentsService";
 import express from "express";
 import { Authorize } from "../middleware/authorize.js";
+import _tasksService from "../services/TasksService";
 
 //PUBLIC
-export default class TasksController {
+export default class commentsController {
   constructor() {
     this.router = express
       .Router()
       .use(Authorize.authenticated)
       .get("/:id", this.getById)
-      .get("/:id/comments", this.getCommentsByTask)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
@@ -23,17 +22,9 @@ export default class TasksController {
     next({ status: 404, message: "No Such Route" });
   }
 
-  async getCommentsByTask(req, res, next) {
-    try {
-      let data = await _commentsService.getCommentsByTask(req.params.id);
-      return res.send(data);
-    } catch (err) {
-      next(err);
-    }
-  }
   async getById(req, res, next) {
     try {
-      let data = await _tasksService.getById(req.params.id);
+      let data = await _commentsService.getById(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error);
@@ -43,7 +34,7 @@ export default class TasksController {
   async create(req, res, next) {
     try {
       req.body.authorId = req.session.uid;
-      let data = await _tasksService.create(req.body);
+      let data = await _commentsService.create(req.body);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
@@ -52,7 +43,7 @@ export default class TasksController {
 
   async edit(req, res, next) {
     try {
-      let data = await _tasksService.edit(
+      let data = await _commentsService.edit(
         req.params.id,
         req.session.uid,
         req.body
@@ -65,7 +56,7 @@ export default class TasksController {
 
   async delete(req, res, next) {
     try {
-      await _tasksService.delete(req.params.id, req.session.uid);
+      await _commentsService.delete(req.params.id, req.session.uid);
       return res.send("Successfully deleted");
     } catch (error) {
       next(error);

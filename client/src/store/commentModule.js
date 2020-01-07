@@ -10,5 +10,15 @@ let api = Axios.create({
   withCredentials: true
 });
 export default {
-  actions: {}
+  actions: {
+    async createComment({ commit, dispatch }, comment) {
+      let res = await api.post("comments", comment);
+      commit("addComment", res.data);
+      this.dispatch("getComments");
+    },
+    async getComments({ commit, dispatch }, id) {
+      let res = await api.get("tasks/" + id + "/comments");
+      commit("setComments", { taskId: id, data: res.data });
+    }
+  }
 };
