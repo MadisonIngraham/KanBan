@@ -1,5 +1,7 @@
 <template>
-  <p class="commment">{{ comData.content }}</p>
+  <div class="commment">
+    <p>{{ comData.content }}</p>
+  </div>
 </template>
 
 <script>
@@ -9,4 +11,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+p {
+  border: 1px solid black;
+  margin: 5%;
+  height: 40px;
+  justify-content: center;
+  padding: 1%;
+}
+</style>

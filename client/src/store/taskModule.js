@@ -14,7 +14,8 @@ export default {
   actions: {
     async createTask({ commit, dispatch }, task) {
       let res = await api.post("tasks", task);
-      commit("addTask", res.data);
+      commit("setTasks", res.data);
+      dispatch("getTasks", res.data.listId);
     },
     async getTasks({ commit, dispatch }, id) {
       let res = await api.get("lists/" + id + "/tasks");

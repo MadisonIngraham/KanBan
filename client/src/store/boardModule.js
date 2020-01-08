@@ -25,6 +25,10 @@ export default {
       api.post("boards", boardData).then(serverBoard => {
         dispatch("getBoards");
       });
+    },
+    async deleteBoard({ commit, dispatch }, id) {
+      await api.delete("boards/" + id);
+      dispatch("getBoards");
     }
   }
 };

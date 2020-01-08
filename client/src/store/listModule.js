@@ -19,6 +19,10 @@ export default {
     async getLists({ commit, dispatch }, id) {
       let res = await api.get("boards/" + id + "/lists");
       commit("setResource", { resource: "lists", data: res.data });
+    },
+    async setActiveList({ commit, dispatch }, id) {
+      let res = await api.get("lists/" + id);
+      commit("setResource", { resource: "activeList", data: res.data });
     }
   }
 };

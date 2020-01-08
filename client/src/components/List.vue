@@ -1,9 +1,12 @@
 <template>
   <div class="list">
     <div class="card border-primary mb-3" style="max-width: 20rem;">
-      <div class="card-header">{{listData.title}}</div>
+      <div class="card-header">
+        {{ listData.title }}
+        <i @click="deleteList(listData.id)" class="fas fa-times"></i>
+      </div>
       <div class="card-body">
-        <form @submit.prevent="createTask">
+        <form @submit.prevent="createTask" class="d-flex">
           <input type="text" placeholder="title" v-model="newTask.title" required />
           <button type="submit">Create Task</button>
         </form>
@@ -41,6 +44,9 @@ export default {
       this.newTask = {
         title: ""
       };
+    },
+    deleteList(listId) {
+      this.$store.dispatch("deleteList", listId);
     }
   },
   computed: {
@@ -52,4 +58,12 @@ export default {
 </script>
 
 <style scoped>
+.list {
+  margin: 1%;
+}
+
+button {
+  margin: 1%;
+  font-size: 8pt;
+}
 </style>

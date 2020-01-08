@@ -34,7 +34,8 @@ export default new Vuex.Store({
     activeBoard: {},
     lists: [],
     tasks: {},
-    comments: {}
+    comments: {},
+    activeList: {}
   },
   mutations: {
     setResource(state, payload) {
@@ -52,10 +53,6 @@ export default new Vuex.Store({
 
     addList(state, list) {
       state.lists.push(list);
-    },
-    addTask(state, task) {
-      state.tasks.push(task);
-      console.log(state.tasks);
     },
 
     setTasks(state, payload) {
@@ -98,6 +95,14 @@ export default new Vuex.Store({
       } catch (e) {
         console.warn(e.message);
       }
+    },
+    async deleteList({ commit, dispatch }, id) {
+      await api.delete("lists/" + id);
+      dispatch("getLists", this.state.activeBoard._id);
+    },
+    async deleteTask({ commit, dispatch }, id) {
+      await api.delete("tasks/" + id);
+      dispatch("getTasks", this.state.activeList._id);
     }
   }
 });
