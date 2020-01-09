@@ -23,7 +23,7 @@ export default {
 
 template {
   height: 100%;
-  margin: 0;
+  margin: 100%;
 }
 
 #nav {

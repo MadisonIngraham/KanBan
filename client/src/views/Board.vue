@@ -16,10 +16,8 @@
       </nav>
     </header>
 
-    <div class="row">
-      <div class="col d-flex">
-        <list :listData="list" v-for="list in lists" :key="list.id" />
-      </div>
+    <div class="d-flex" id="list-col">
+      <list :listData="list" v-for="list in lists" :key="list.id" />
     </div>
   </div>
 </template>
@@ -121,6 +119,11 @@ i {
 #icon-title-group {
   display: flex;
   align-items: center;
+}
+
+#list-col {
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
 nav {

@@ -13,34 +13,20 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header d-flex flex-column">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
+            <button type="button" class="close" data-dismiss="modal">
+              <i class="fas fa-times fa-1x"></i>
             </button>
             <h5 class="modal-title" id="taskTitle">{{ taskData.title }}</h5>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="createComment">
-              <input
-                id="comment-form"
-                type="text"
-                name="content"
-                v-model="newComment.content"
-                placeholder="Enter comment"
-              />
-              <button type="submit" class="btn btn-primary">
-                Save changes
-              </button>
+            <form @submit.prevent="createComment" class="group">
+              <input id="comment-form" type="text" name="content" v-model="newComment.content" />
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>Enter comment</label>
             </form>
-            <comment
-              :comData="comment"
-              v-for="comment in comments"
-              :key="comment.id"
-            />
+
+            <comment :comData="comment" v-for="comment in comments" :key="comment.id" />
           </div>
           <div class="modal-footer">
             <button
@@ -48,9 +34,7 @@
               data-dismiss="modal"
               class="btn btn-danger"
               @click="deleteTask(taskData._id)"
-            >
-              Delete Task
-            </button>
+            >Delete Task</button>
           </div>
         </div>
       </div>
@@ -135,6 +119,11 @@ template {
   --dark: #17141f;
 }
 
+.close {
+  height: 0;
+  color: #593196;
+}
+
 p {
   text-align: center;
 }
@@ -148,6 +137,22 @@ p {
 .task {
   border: 1px solid black;
   margin: 5%;
+  border: 1px solid #593196;
+  font-family: "Montserrat", sans-serif;
+}
+
+i {
+  color: #22054d;
+  text-shadow: none;
+}
+
+.modal-header {
+  background-color: #868e96;
+  color: white;
+}
+
+input {
+  margin-top: 10px;
 }
 
 #top-save {
@@ -219,5 +224,123 @@ p {
 .btn.disabled:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+/* form starting stylings ------------------------------- */
+.group {
+  position: relative;
+  margin-bottom: 45px;
+}
+
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+input:focus {
+  outline: none;
+}
+
+/* LABEL ======================================= */
+label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label,
+input:valid ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: #5264ae;
+}
+
+/* BOTTOM BARS ================================= */
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #5264ae;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+
+/* active state */
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
 }
 </style>

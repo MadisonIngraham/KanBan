@@ -7,46 +7,32 @@
           <h2>PLAN-IT</h2>
         </div>
         <div>
-          <button class="btn btn-secondary" type="button" @click="logout">
-            Logout
-          </button>
+          <button class="btn btn-secondary" type="button" @click="logout">Logout</button>
         </div>
       </nav>
     </header>
-    <div class="row">
-      <div class="col">
-        <form @submit.prevent="addBoard">
-          <input
-            type="text"
-            placeholder="title"
-            v-model="newBoard.title"
-            required
-          />
-          <input
-            type="text"
-            placeholder="description"
-            v-model="newBoard.description"
-          />
-          <button type="submit">Create Board</button>
-        </form>
-      </div>
+    <div class="centered">
+      <form @submit.prevent="addBoard" class="group">
+        <input type="text" placeholder="title" id="title" v-model="newBoard.title" required />
+
+        <button type="submit">Create Board</button>
+        <div class="bar"></div>
+      </form>
     </div>
-    <div class="row">
-      <div
-        id="board-card"
-        class="col-3"
-        v-for="board in boards"
-        :key="board._id"
-      >
-        <router-link :to="{ name: 'board', params: { boardId: board._id } }">{{
-          board.title
-        }}</router-link>
-        <i
-          @click="deleteBoard(board._id)"
-          class="fas fa-trash"
-          id="trash-icon"
-        ></i>
-        <div></div>
+    <div class="row d-flex board-btn">
+      <div class="col">
+        <div class="row" id="b-btns">
+          <div class="col-3" v-for="board in boards" :key="board._id">
+            <button id="board-card" class="btn btn-primary">
+              <router-link :to="{ name: 'board', params: { boardId: board._id } }" id="router">
+                {{
+                board.title
+                }}
+              </router-link>
+              <i @click="deleteBoard(board._id)" class="fas fa-trash" id="trash-icon"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -111,13 +97,31 @@ template {
   --dark: #17141f;
 }
 
-.col-3 {
-  border: 1px solid black;
-  height: 25vh;
-  margin: 3%;
-  margin-left: 5vw;
+.btn-primary {
+  background-color: #593196;
+  border: 1px solid #593196;
+  -webkit-box-shadow: 0 0 5px #703ebc;
+  box-shadow: 0 0 5px #703ebc;
 }
 
+#router {
+  color: white !important;
+}
+
+.board-btn {
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+#b-btns {
+  margin: 3%;
+}
+
+#board-card {
+  margin-top: 25px;
+  width: 200px;
+}
 i {
   color: white;
   margin-left: 20px;
@@ -128,7 +132,7 @@ i {
 }
 
 #trash-icon {
-  color: var(--gray-dark);
+  color: var(--gray);
 }
 
 form {
