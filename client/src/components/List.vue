@@ -99,6 +99,7 @@ button {
   justify-content: space-between;
   border-radius: 0;
   box-sizing: none;
+  margin-top: -0.5px;
 }
 
 i {
@@ -108,6 +109,7 @@ i {
 .group {
   position: relative;
   margin-bottom: 45px;
+  margin-top: 15px;
 }
 input {
   font-size: 18px;

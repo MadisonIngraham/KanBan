@@ -10,7 +10,7 @@
         <div class="m-4">
           <form @submit="createList">
             <input type="text" id="title" v-model="newList.title" required />
-            <button type="submit">Create List</button>
+            <button class="btn btn-secondary" type="submit">Create List</button>
           </form>
         </div>
       </nav>
@@ -98,6 +98,14 @@ template {
   --danger: #fc3939;
   --light: #f9f8fc;
   --dark: #17141f;
+}
+
+.btn-secondary {
+  border-radius: 0;
+  height: 30px;
+  padding: 1%;
+  margin-bottom: 2px;
+  width: 120px;
 }
 
 h2 {

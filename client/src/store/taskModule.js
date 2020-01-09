@@ -20,6 +20,11 @@ export default {
     async getTasks({ commit, dispatch }, id) {
       let res = await api.get("lists/" + id + "/tasks");
       commit("setTasks", { listId: id, data: res.data });
+    },
+    async moveToList({ commit, dispatch }, taskData) {
+      let res = await api.put("tasks/" + taskData._id, taskData);
+      dispatch("getTasks", res.data.listId);
+      dispatch("getTasks", taskData.oldListId);
     }
   }
 };

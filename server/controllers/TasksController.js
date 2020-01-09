@@ -52,11 +52,7 @@ export default class TasksController {
 
   async edit(req, res, next) {
     try {
-      let data = await _tasksService.edit(
-        req.params.id,
-        req.session.uid,
-        req.body
-      );
+      let data = await _tasksService.edit(req.body);
       return res.send(data);
     } catch (error) {
       next(error);

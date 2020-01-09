@@ -13,9 +13,9 @@
     </header>
     <div class="centered">
       <form @submit.prevent="addBoard" class="group">
-        <input type="text" placeholder="title" id="title" v-model="newBoard.title" required />
+        <input type="text" placeholder="Title" id="title" v-model="newBoard.title" required />
 
-        <button type="submit">Create Board</button>
+        <button class="btn btn-primary" type="submit">Create Board</button>
         <div class="bar"></div>
       </form>
     </div>
@@ -100,6 +100,8 @@ template {
 .btn-primary {
   background-color: #593196;
   border: 1px solid #593196;
+}
+.btn-primary:hover {
   -webkit-box-shadow: 0 0 5px #703ebc;
   box-shadow: 0 0 5px #703ebc;
 }

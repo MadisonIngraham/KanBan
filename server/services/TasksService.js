@@ -22,9 +22,9 @@ class TasksService {
     return data;
   }
 
-  async edit(id, boardId, update) {
+  async edit(update) {
     let data = await _repository.findOneAndUpdate(
-      { _id: id, boardId: boardId },
+      { _id: update.id, boardId: update.boardId },
       update,
       { new: true }
     );

@@ -1,7 +1,23 @@
 <template>
   <div class="task">
-    <div :data-target="'#modal' + taskData._id" data-toggle="modal">
+    <div :data-target="'#modal' + taskData._id" data-toggle="modal" class="task-window d-flex">
       <p>{{ taskData.title }}</p>
+
+      <div class="btn-group" role="group">
+        <button
+          id="btnGroupDrop1"
+          type="button"
+          class="btn btn-primary dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        ></button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+          <div :listData="listLink" v-for="listLink in listLinks" :key="listLink._id">
+            <p class="dropdown-item" @click.stop="moveToList(listLink._id)">{{listLink.title}}</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="modal fade"
@@ -52,7 +68,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getComments", this.taskData._id);
-    this.$store.dispatch("setActiveList", this.taskData.listId);
+    // this.$store.dispatch("setActiveList", this.taskData.listId);
   },
   data() {
     return {
@@ -84,11 +100,19 @@ export default {
     },
     deleteTask(taskId) {
       this.$store.dispatch("deleteTask", taskId);
+    },
+    moveToList(listId) {
+      this.taskData["oldListId"] = this.taskData.listId;
+      this.taskData.listId = listId;
+      this.$store.dispatch("moveToList", this.taskData);
     }
   },
   computed: {
     comments() {
       return this.$store.state.comments[this.taskData._id] || [];
+    },
+    listLinks() {
+      return this.$store.state.lists;
     }
   }
 };
@@ -126,6 +150,9 @@ template {
 
 p {
   text-align: center;
+  margin-bottom: 0;
+  width: 100%;
+  padding: 3%;
 }
 
 .btn-primary {
@@ -161,6 +188,19 @@ input {
 
 #comment-form {
   width: -webkit-fill-available;
+}
+
+#btnGroupDrop1 {
+  box-shadow: none;
+  border-radius: 0;
+  /* margin-top: -1px; */
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #2a0566;
+  border-color: #2a0566;
 }
 .btn:focus,
 .btn:active,
