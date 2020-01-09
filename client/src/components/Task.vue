@@ -13,14 +13,15 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header d-flex flex-column">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
             <h5 class="modal-title" id="taskTitle">{{ taskData.title }}</h5>
-            <form class="d-flex mt-2">
-              <input type="text" placeholder="Enter description" />
-              <button type="submit" class="btn btn-primary" id="top-save">Save changes</button>
-            </form>
           </div>
           <div class="modal-body">
             <form @submit.prevent="createComment">
@@ -31,9 +32,15 @@
                 v-model="newComment.content"
                 placeholder="Enter comment"
               />
-              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-primary">
+                Save changes
+              </button>
             </form>
-            <comment :comData="comment" v-for="comment in comments" :key="comment.id" />
+            <comment
+              :comData="comment"
+              v-for="comment in comments"
+              :key="comment.id"
+            />
           </div>
           <div class="modal-footer">
             <button
@@ -41,7 +48,9 @@
               data-dismiss="modal"
               class="btn btn-danger"
               @click="deleteTask(taskData._id)"
-            >Delete Task</button>
+            >
+              Delete Task
+            </button>
           </div>
         </div>
       </div>
@@ -124,6 +133,10 @@ template {
   --danger: #fc3939;
   --light: #f9f8fc;
   --dark: #17141f;
+}
+
+p {
+  text-align: center;
 }
 
 .btn-primary {

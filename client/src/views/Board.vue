@@ -2,10 +2,10 @@
   <div class="board">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div id="icon-title-group">
-          <a class="navbar-brand" href="#">LOGO ICON HERE</a>
+        <div id="icon-title-group" @click="goToHomePage">
+          <i class="fas fa-globe fa-2x"></i>
 
-          <h1>{{ board.title }}</h1>
+          <h2 class="ml-3">{{ board.title }}</h2>
         </div>
         <div class="m-4">
           <form @submit="createList">
@@ -26,6 +26,8 @@
 
 <script>
 import List from "../components/List";
+import router from "../router";
+
 export default {
   name: "board",
   components: {
@@ -50,6 +52,9 @@ export default {
         authorId: this.$store.state.activeBoard.authorId
       };
       this.$store.dispatch("deleteBoard", board);
+    },
+    goToHomePage() {
+      router.push({ name: "boards" });
     }
   },
   data() {
@@ -97,8 +102,16 @@ template {
   --dark: #17141f;
 }
 
-h1 {
+h2 {
   color: white;
+  font-family: "Montserrat Subrayada", sans-serif;
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+i {
+  color: white;
+  margin-left: 20px;
 }
 
 .bg-primary {
@@ -107,6 +120,7 @@ h1 {
 
 #icon-title-group {
   display: flex;
+  align-items: center;
 }
 
 nav {
@@ -222,4 +236,4 @@ nav {
 .navbar-dark .navbar-text a:focus {
   color: rgba(255, 255, 255, 0.9);
 }
-</style> 
+</style>

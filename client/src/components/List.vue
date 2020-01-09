@@ -5,13 +5,19 @@
         {{ listData.title }}
         <i @click="deleteList(listData.id)" class="fas fa-times"></i>
       </div>
-      <div class="card-body">
+      <body class="card-body">
         <form @submit.prevent="createTask" class="d-flex">
-          <input type="text" placeholder="title" v-model="newTask.title" required />
+          <input
+            type="text"
+            placeholder="title"
+            v-model="newTask.title"
+            required
+          />
           <button type="submit">Create Task</button>
         </form>
+
         <task :taskData="task" v-for="task in tasks" :key="task.id" />
-      </div>
+      </body>
     </div>
   </div>
 </template>
@@ -28,8 +34,8 @@ export default {
     return {
       newTask: {
         title: "",
-        boardId: this.$route.params.boardId,
-        authorId: this.$store.state.activeBoard.authorId,
+        boardId: this.listData.boardId,
+        authorId: this.listData.authorId,
         listId: this.listData._id
       }
     };

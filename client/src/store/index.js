@@ -7,6 +7,7 @@ import boardModule from "./boardModule";
 import listModule from "./listModule";
 import taskModule from "./taskModule";
 import commentModule from "./commentModule";
+import { STATES } from "mongoose";
 
 Vue.use(Vuex);
 
@@ -57,12 +58,20 @@ export default new Vuex.Store({
 
     setTasks(state, payload) {
       Vue.set(state.tasks, payload.listId, payload.data);
+      console.log(state.tasks);
     },
-    addComment(state, comment) {
-      state.comments.push(comment);
-    },
+
     setComments(state, payload) {
       Vue.set(state.comments, payload.taskId, payload.data);
+    },
+    resetState(state) {
+      state.user = {};
+      state.boards = [];
+      state.activeBoard = {};
+      state.lists = [];
+      state.tasks = {};
+      state.comments = {};
+      state.activeList = {};
     }
   },
   actions: {

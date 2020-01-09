@@ -2,24 +2,50 @@
   <div class="boards">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div id="icon-title-group">
-          <a class="navbar-brand" href="#">LOGO ICON HERE</a>
+        <div class="d-flex" id="logo-title-boards">
+          <i class="fas fa-globe fa-2x"></i>
+          <h2>PLAN-IT</h2>
+        </div>
+        <div>
+          <button class="btn btn-secondary" type="button" @click="logout">
+            Logout
+          </button>
         </div>
       </nav>
     </header>
     <div class="row">
       <div class="col">
         <form @submit.prevent="addBoard">
-          <input type="text" placeholder="title" v-model="newBoard.title" required />
-          <input type="text" placeholder="description" v-model="newBoard.description" />
+          <input
+            type="text"
+            placeholder="title"
+            v-model="newBoard.title"
+            required
+          />
+          <input
+            type="text"
+            placeholder="description"
+            v-model="newBoard.description"
+          />
           <button type="submit">Create Board</button>
         </form>
       </div>
     </div>
     <div class="row">
-      <div id="board-card" class="col-3" v-for="board in boards" :key="board._id">
-        <router-link :to="{name: 'board', params: {boardId: board._id}}">{{board.title}}</router-link>
-        <i @click="deleteBoard(board._id)" class="fas fa-trash"></i>
+      <div
+        id="board-card"
+        class="col-3"
+        v-for="board in boards"
+        :key="board._id"
+      >
+        <router-link :to="{ name: 'board', params: { boardId: board._id } }">{{
+          board.title
+        }}</router-link>
+        <i
+          @click="deleteBoard(board._id)"
+          class="fas fa-trash"
+          id="trash-icon"
+        ></i>
         <div></div>
       </div>
     </div>
@@ -52,6 +78,9 @@ export default {
     },
     deleteBoard(boardId) {
       this.$store.dispatch("deleteBoard", boardId);
+    },
+    logout() {
+      this.$store.dispatch("logout");
     }
   }
 };
@@ -89,12 +118,29 @@ template {
   margin-left: 5vw;
 }
 
+i {
+  color: white;
+  margin-left: 20px;
+}
+
+#logo-title-boards {
+  align-items: center;
+}
+
+#trash-icon {
+  color: var(--gray-dark);
+}
+
 form {
   margin-top: 20pt;
   margin-bottom: 10pt;
 }
-h1 {
+
+h2 {
   color: white;
+  font-family: "Montserrat Subrayada", sans-serif;
+  margin-left: 10px;
+  margin-bottom: 0px;
 }
 
 .bg-primary {
