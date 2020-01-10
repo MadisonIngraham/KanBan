@@ -1,4 +1,4 @@
-import _commentsService from "../services/commentsService";
+import _commentsService from "../services/CommentsService";
 import express from "express";
 import { Authorize } from "../middleware/authorize.js";
 import _tasksService from "../services/TasksService";
