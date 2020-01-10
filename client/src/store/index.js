@@ -36,7 +36,8 @@ export default new Vuex.Store({
     lists: [],
     tasks: {},
     comments: {},
-    activeList: {}
+    activeList: {},
+    activeImage: {}
   },
   mutations: {
     setResource(state, payload) {
@@ -72,6 +73,10 @@ export default new Vuex.Store({
       state.tasks = {};
       state.comments = {};
       state.activeList = {};
+    },
+    setActiveImage(state, url) {
+      state.activeImage = url;
+      console.log(state.activeImage);
     }
   },
   actions: {
@@ -112,6 +117,11 @@ export default new Vuex.Store({
     async deleteTask({ commit, dispatch }, id) {
       await api.delete("tasks/" + id);
       dispatch("getTasks", this.state.activeList._id);
+    },
+    async setBackground({ commit, dispatch }, url) {
+      console.log(url);
+
+      commit("setActiveImage", url);
     }
   }
 });

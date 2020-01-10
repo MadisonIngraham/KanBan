@@ -15,9 +15,81 @@
         </div>
       </nav>
     </header>
-
-    <div class="d-flex" id="list-col">
-      <list :listData="list" v-for="list in lists" :key="list.id" />
+    <div id="body" :style="{ backgroundImage: 'url(' + image + ')' }">
+      <div id="background-img">
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Button group with nested dropdown"
+        >
+          <button type="button" class="btn btn-dropdown">Background</button>
+          <div class="btn-group" role="group">
+            <button
+              id="btnGroupDrop1"
+              type="button"
+              class="btn btn-primary dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            ></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <img
+                @click.prevent="
+                  setBackground('https://wallpaperaccess.com/full/267871.jpg')
+                "
+                src="https://wallpaperaccess.com/full/267871.jpg"
+                alt="bridge"
+              />
+              <img
+                @click.prevent="
+                  setBackground(
+                    'https://cdn.hipwallpaper.com/i/81/49/YJ4T3p.jpg'
+                  )
+                "
+                src="https://cdn.hipwallpaper.com/i/81/49/YJ4T3p.jpg"
+                alt="scenic"
+              />
+              <img
+                @click.prevent="
+                  setBackground(
+                    'https://www.itl.cat/pngfile/big/155-1558020_empty-office-hd-wallpaper-men-window.jpg'
+                  )
+                "
+                src="https://www.itl.cat/pngfile/big/155-1558020_empty-office-hd-wallpaper-men-window.jpg"
+                alt="office"
+              />
+              <img
+                @click.prevent="
+                  setBackground(
+                    'http://getwallpapers.com/wallpaper/full/4/7/5/141079.jpg'
+                  )
+                "
+                src="http://getwallpapers.com/wallpaper/full/4/7/5/141079.jpg"
+                alt="keyboard"
+              />
+              <img
+                @click.prevent="
+                  setBackground('https://wallpapercave.com/wp/rhIs8kJ.jpg')
+                "
+                src="https://wallpapercave.com/wp/rhIs8kJ.jpg"
+                alt="tiger"
+              />
+              <img
+                @click.prevent="
+                  setBackground(
+                    'http://3.bp.blogspot.com/-wy5kJWK2NWY/UQW6tyrRWyI/AAAAAAAALzI/0aDOT3fpG9c/s1600/black-and-white-wallpaper-with-shark-hd-animal-background-photo.jpg'
+                  )
+                "
+                src="http://3.bp.blogspot.com/-wy5kJWK2NWY/UQW6tyrRWyI/AAAAAAAALzI/0aDOT3fpG9c/s1600/black-and-white-wallpaper-with-shark-hd-animal-background-photo.jpg"
+                alt="shark"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex" id="list-col">
+        <list :listData="list" v-for="list in lists" :key="list.id" />
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +118,9 @@ export default {
     },
     goToHomePage() {
       router.push({ name: "boards" });
+    },
+    setBackground(url) {
+      this.$store.dispatch("setBackground", url);
     }
   },
   data() {
@@ -63,6 +138,9 @@ export default {
     },
     lists() {
       return this.$store.state.lists;
+    },
+    image() {
+      return this.$store.state.activeImage;
     }
   }
 };
@@ -91,6 +169,68 @@ template {
   --danger: #fc3939;
   --light: #f9f8fc;
   --dark: #17141f;
+}
+
+img {
+  padding: 5px; /* Some padding */
+  width: 150px; /* Set a small width */
+}
+
+img:hover {
+  box-shadow: 0 0 2px 1px #593196;
+}
+
+#background-img {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#body {
+  height: 85%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.board {
+  height: 100%;
+}
+
+.dropdown-menu {
+  transform: translate3d(-280px, 38px, 0px);
+  min-width: 20rem;
+  text-align: center;
+  border: none;
+  background-color: transparent;
+}
+
+.btn-primary.focus,
+.btn-primary:focus {
+  box-shadow: none;
+}
+
+.btn.focus,
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-dropdown,
+.dropdown-toggle {
+  color: black;
+  background-color: white;
+  border: none;
+}
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #2a0566;
+  border-color: #2a0566;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
 }
 
 .btn-secondary {
