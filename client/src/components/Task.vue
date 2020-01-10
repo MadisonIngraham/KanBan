@@ -1,6 +1,10 @@
 <template>
   <div class="task">
-    <div :data-target="'#modal' + taskData._id" data-toggle="modal" class="task-window d-flex">
+    <div
+      :data-target="'#modal' + taskData._id"
+      data-toggle="modal"
+      class="task-window d-flex"
+    >
       <p>{{ taskData.title }}</p>
 
       <div class="btn-group" role="group">
@@ -13,8 +17,14 @@
           aria-expanded="false"
         ></button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-          <div :listData="listLink" v-for="listLink in listLinks" :key="listLink._id">
-            <p class="dropdown-item" @click.stop="moveToList(listLink._id)">{{listLink.title}}</p>
+          <div
+            :listData="listLink"
+            v-for="listLink in listLinks"
+            :key="listLink._id"
+          >
+            <p class="dropdown-item" @click.stop="moveToList(listLink._id)">
+              {{ listLink.title }}
+            </p>
           </div>
         </div>
       </div>
@@ -36,13 +46,22 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="createComment" class="group">
-              <input id="comment-form" type="text" name="content" v-model="newComment.content" />
+              <input
+                id="comment-form"
+                type="text"
+                name="content"
+                v-model="newComment.content"
+              />
               <span class="highlight"></span>
               <span class="bar"></span>
               <label>Enter comment</label>
             </form>
 
-            <comment :comData="comment" v-for="comment in comments" :key="comment.id" />
+            <comment
+              :comData="comment"
+              v-for="comment in comments"
+              :key="comment.id"
+            />
           </div>
           <div class="modal-footer">
             <button
@@ -50,7 +69,9 @@
               data-dismiss="modal"
               class="btn btn-danger"
               @click="deleteTask(taskData._id)"
-            >Delete Task</button>
+            >
+              Delete Task
+            </button>
           </div>
         </div>
       </div>
@@ -60,6 +81,8 @@
 
 <script>
 import Comment from "./Comment";
+import Swal from "sweetalert2";
+
 export default {
   name: "Task",
   props: ["taskData"],
@@ -99,7 +122,20 @@ export default {
       };
     },
     deleteTask(taskId) {
-      this.$store.dispatch("deleteTask", taskId);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.$store.dispatch("deleteTask", taskId);
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     },
     moveToList(listId) {
       this.taskData["oldListId"] = this.taskData.listId;

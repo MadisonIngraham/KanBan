@@ -44,13 +44,6 @@ export default {
         title: ""
       };
     },
-    deleteBoard() {
-      let board = {
-        _id: this.$route.params.boardId,
-        authorId: this.$store.state.activeBoard.authorId
-      };
-      this.$store.dispatch("deleteBoard", board);
-    },
     goToHomePage() {
       router.push({ name: "boards" });
     }

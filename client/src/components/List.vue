@@ -1,26 +1,27 @@
 <template>
-<div class="list">
-  <div class="card border-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header">
-      {{ listData.title }}
-      <i @click="deleteList(listData.id)" class="fas fa-times"></i>
-    </div>
-    <body class="card-body">
-      <form @submit.prevent="createTask" class="group">
-        <input type="text" v-model="newTask.title" required />
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label>Enter task name</label>
-      </form>
+  <div class="list">
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+      <div class="card-header">
+        {{ listData.title }}
+        <i @click="deleteList(listData.id)" class="fas fa-times"></i>
+      </div>
+      <body class="card-body">
+        <form @submit.prevent="createTask" class="group">
+          <input type="text" v-model="newTask.title" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Enter task name</label>
+        </form>
 
-      <task :taskData="task" v-for="task in tasks" :key="task.id" />
-    </body>
+        <task :taskData="task" v-for="task in tasks" :key="task.id" />
+      </body>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 import Task from "./Task";
+import Swal from "sweetalert2";
 export default {
   name: "List",
   props: ["listData"],
@@ -49,7 +50,20 @@ export default {
       };
     },
     deleteList(listId) {
-      this.$store.dispatch("deleteList", listId);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.$store.dispatch("deleteList", listId);
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     }
   },
   computed: {

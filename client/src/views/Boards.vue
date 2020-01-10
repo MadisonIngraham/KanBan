@@ -7,13 +7,21 @@
           <h2>PLAN-IT</h2>
         </div>
         <div>
-          <button class="btn btn-secondary" type="button" @click="logout">Logout</button>
+          <button class="btn btn-secondary" type="button" @click="logout">
+            Logout
+          </button>
         </div>
       </nav>
     </header>
     <div class="centered">
       <form @submit.prevent="addBoard" class="group">
-        <input type="text" placeholder="Title" id="title" v-model="newBoard.title" required />
+        <input
+          type="text"
+          placeholder="Title"
+          id="title"
+          v-model="newBoard.title"
+          required
+        />
 
         <button class="btn btn-primary" type="submit">Create Board</button>
         <div class="bar"></div>
@@ -24,12 +32,17 @@
         <div class="row" id="b-btns">
           <div class="col-3" v-for="board in boards" :key="board._id">
             <button id="board-card" class="btn btn-primary">
-              <router-link :to="{ name: 'board', params: { boardId: board._id } }" id="router">
-                {{
-                board.title
-                }}
+              <router-link
+                :to="{ name: 'board', params: { boardId: board._id } }"
+                id="router"
+              >
+                {{ board.title }}
               </router-link>
-              <i @click="deleteBoard(board._id)" class="fas fa-trash" id="trash-icon"></i>
+              <i
+                @click="deleteBoard(board._id)"
+                class="fas fa-trash"
+                id="trash-icon"
+              ></i>
             </button>
           </div>
         </div>
@@ -39,6 +52,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "boards",
   mounted() {
@@ -63,7 +77,20 @@ export default {
       this.newBoard = { title: "", description: "" };
     },
     deleteBoard(boardId) {
-      this.$store.dispatch("deleteBoard", boardId);
+      Swal.fire({
+        title: "Delete this board?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.$store.dispatch("deleteBoard", boardId);
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     },
     logout() {
       this.$store.dispatch("logout");
